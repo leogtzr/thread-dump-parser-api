@@ -1,14 +1,18 @@
 package com.thread.dump.parser;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.regex.Matcher;
 
+import com.thread.dump.parser.bean.ThreadInfo;
 import com.thread.dump.parser.util.ParsingConstants;
 import com.thread.dump.parser.util.PatternConstants;
+import com.thread.dump.parser.util.ThreadParsing;
 
 /**
  * @author Leo Gutiérrez
@@ -22,16 +26,28 @@ public class ThreadDumpReader {
 	}
 	
 	public void parse() throws IOException {
+		
+		final List<ThreadInfo> threads = new ArrayList<>();
+		
 		try {
 			try (final BufferedReader br = new BufferedReader(new FileReader(threadDumpFilePath))) {
-				// Read thread timestamp ...
+				// Read thread's timestamp ...
 				final Date threadDumpTimesTamp = PatternConstants.THREAD_DUMP_TIMESTAMP_FORMAT.parse(br.readLine());
 				System.out.println(threadDumpTimesTamp);
-				
+
 				for (String line = br.readLine(); line != null; line = br.readLine()) {
-					// System.out.println(line);
 					if (line.startsWith(ParsingConstants.THREAD_INFORMATION_BEGIN)) {
-						System.out.println("Threa beginning: " + line);
+						final Optional<ThreadInfo> threadInfo = ThreadParsing.extractThreadInfoFromLine(line);
+						if (threadInfo.isPresent()) {
+							final ThreadInfo thread = threadInfo.get();
+							
+							final Optional<Thread.State> state = ThreadParsing.extractThreadState(br.readLine());
+							if (state.isPresent()) {
+								thread.setState(state.get().toString());
+							}
+							
+							threads.add(thread);
+						}
 					}
 				}
 				
@@ -39,15 +55,9 @@ public class ThreadDumpReader {
 		} catch (IOException | ParseException ex) {
 			throw new IOException("Unable to generate thread dump information.", ex);
 		}
-	}
-	
-	private void parseThreadNameInfo(final String threadNameLine) {
-		final Matcher matcher = PatternConstants.THREAD_NAME.matcher(threadNameLine);
-		if (matcher.find()) {
-			if (matcher.groupCount() !=  3) {
-				// ... 
-			}
-		}
+		
+		System.out.println(threads);
+		
 	}
 	
 }
