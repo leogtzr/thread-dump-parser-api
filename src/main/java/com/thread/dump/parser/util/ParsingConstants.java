@@ -9,6 +9,8 @@ public class ParsingConstants {
 	
 	public static final int THREAD_NAME_FIELD_COUNT = 3;
 	
+	public static final String NEW_LINE = "\r\n";
+	
 	private ParsingConstants() {}
 
 }

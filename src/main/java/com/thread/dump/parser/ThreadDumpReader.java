@@ -31,12 +31,13 @@ public class ThreadDumpReader {
 		
 		try {
 			try (final BufferedReader br = new BufferedReader(new FileReader(threadDumpFilePath))) {
+				
 				// Read thread's timestamp ...
 				final Date threadDumpTimesTamp = PatternConstants.THREAD_DUMP_TIMESTAMP_FORMAT.parse(br.readLine());
-				System.out.println(threadDumpTimesTamp);
 
 				for (String line = br.readLine(); line != null; line = br.readLine()) {
 					if (line.startsWith(ParsingConstants.THREAD_INFORMATION_BEGIN)) {
+						
 						final Optional<ThreadInfo> threadInfo = ThreadParsing.extractThreadInfoFromLine(line);
 						if (threadInfo.isPresent()) {
 							final ThreadInfo thread = threadInfo.get();
@@ -46,18 +47,28 @@ public class ThreadDumpReader {
 								thread.setState(state.get().toString());
 							}
 							
+							final Optional<String> stacktrace = ThreadParsing.extractThreadStackTrace(br);
+							if (stacktrace.isPresent()) {
+								thread.setRawData(stacktrace.get());
+							}
+							
 							threads.add(thread);
 						}
 					}
 				}
 				
 			}
+			
 		} catch (IOException | ParseException ex) {
 			throw new IOException("Unable to generate thread dump information.", ex);
 		}
 		
-		System.out.println(threads);
+		printThreadsInformation(threads);
 		
+	}
+	
+	private void printThreadsInformation(final List<ThreadInfo> threads) {
+		threads.stream().forEach(System.out::println);
 	}
 	
 }

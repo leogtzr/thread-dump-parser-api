@@ -1,7 +1,11 @@
 package com.thread.dump.parser.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.regex.Matcher;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.thread.dump.parser.bean.ThreadInfo;
 
@@ -37,6 +41,20 @@ public class ThreadParsing {
 		}
 		
 		return Optional.<Thread.State>empty();
+	}
+	
+	public static Optional<String> extractThreadStackTrace(final BufferedReader br) throws IOException {
+		
+		final StringBuilder sb = new StringBuilder();
+		for (String line = br.readLine(); line != null && StringUtils.isNotBlank(line); line = br.readLine()) {
+			sb.append(line).append(ParsingConstants.NEW_LINE);
+		}
+		
+		if (StringUtils.isNotEmpty(sb.toString())) {
+			return Optional.<String>of(sb.toString());
+		} else {
+			return Optional.<String>empty();
+		}
 	}
 
 }
