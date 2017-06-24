@@ -57,13 +57,23 @@ public class ThreadDumpReader {
 					}
 				}
 				
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				
+				threads.stream().filter(thread -> ThreadParsing.isThreadHoldingLock(thread.getRawData())).
+					forEach(thread -> {
+						System.out.println("Thread: " + thread.getName());
+					});
+				
+				System.out.println("Analyzing locking ... ");
+				threads.stream().forEach(thread -> ThreadParsing.retrieveLockingThreads(thread.getRawData()));
+				
 			}
 			
 		} catch (IOException | ParseException ex) {
 			throw new IOException("Unable to generate thread dump information.", ex);
 		}
 		
-		printThreadsInformation(threads);
+		// printThreadsInformation(threads);
 		
 	}
 	

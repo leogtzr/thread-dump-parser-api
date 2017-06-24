@@ -56,5 +56,23 @@ public class ThreadParsing {
 			return Optional.<String>empty();
 		}
 	}
+	
+	public static boolean isThreadWaitingToAcquireLock(final String stackTrace) {
+		return PatternConstants.WAITING_TO_LOCK.matcher(stackTrace).find();
+	}
+	
+	public static boolean isThreadHoldingLock(final String stackTrace) {
+		return PatternConstants.THREAD_LOCKED.matcher(stackTrace).find();
+	}
+	
+	public static void retrieveLockingThreads(final String stackTrace) {
+		final Matcher threadHoldingMatcher = PatternConstants.THREAD_LOCKED.matcher(stackTrace);
+		
+		while (threadHoldingMatcher.find()) {
+			System.out.println(threadHoldingMatcher.group(1));
+			
+		}
+		
+	}
 
 }

@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public class App {
 	public static void main(final String[] args) throws IOException {
-		final ThreadDumpReader threadDumpReader = new ThreadDumpReader("../td");
+		final ThreadDumpReader threadDumpReader = new ThreadDumpReader(args[0]);
 		threadDumpReader.parse();
 	}
 }
