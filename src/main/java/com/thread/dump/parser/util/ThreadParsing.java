@@ -70,7 +70,6 @@ public class ThreadParsing {
 		
 		while (threadHoldingMatcher.find()) {
 			System.out.println(threadHoldingMatcher.group(1));
-			
 		}
 		
 	}
