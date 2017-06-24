@@ -15,6 +15,18 @@ public class ThreadParsingTest {
 	
 	private static final String THREAD_STATE = " java.lang.Thread.State: WAITING (kahsdasd)";
 	
+	private static final String STACKTRACE = "java.lang.Thread.State: BLOCKED (on object monitor)" + 
+			"at atg.adapter.gsa.GSATransaction.removeItemStateFromTransaction(GSATransaction.java:579)" +
+			"- waiting to lock <0x00000007663f3518> (a atg.adapter.gsa.GSATransaction)" + 
+			"at atg.adapter.gsa.GSAItem.removeItemTransactionState(GSAItem.java:1162)" +
+			" - locked <0x0000000735109af8> (a atg.adapter.gsa.GSAContentItem)" + 
+			"at atg.adapter.gsa.ItemTransactionState.commitItemState(ItemTransactionState.java:1033)" + 
+			"at atg.adapter.gsa.GSATransaction.afterCompletion(GSATransaction.java:546)" +
+			"at com.arjuna.ats.internal.jta.resources.arjunacore.SynchronizationImple.afterCompletion(SynchronizationImple.java:126)" +
+			"at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.afterCompletion(TwoPhaseCoordinator.java:389)" +
+			"- locked <0x000000075bcdacf0> (a java.lang.Object)" +
+			"at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.cancel(TwoPhaseCoordinator.java:116)";
+	
 	@Test
 	public void shouldReturnNonEmptyThreadInfoObject() {
 		final Optional<ThreadInfo> threadInfo = ThreadParsing.extractThreadInfoFromLine(THREAD_NAME_HEADER);
@@ -26,6 +38,16 @@ public class ThreadParsingTest {
 	public void shouldReturnNonEmptyThreadState() {
 		final Optional<Thread.State> threadState = ThreadParsing.extractThreadState(THREAD_STATE);
 		assertTrue(threadState.isPresent());
+	}
+	
+	@Test
+	public void shouldIdentifyStackTraceWaitingToAcquireLock() {
+		assertTrue(ThreadParsing.isThreadWaitingToAcquireLock(STACKTRACE));
+	}
+	
+	@Test
+	public void shouldIdentifyStackTraceHolding() {
+		assertTrue(ThreadParsing.isThreadHoldingLock(STACKTRACE));
 	}
 	
 }
