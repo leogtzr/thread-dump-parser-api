@@ -14,6 +14,7 @@ public class PatternConstants {
 	public static final Pattern LOCK_WAIT = Pattern.compile("\\s+- parking to wait for\\s+<(.*)>\\s+\\(.*\\)");
 	public static final Pattern THREAD_LOCKED = Pattern.compile("\\s+- locked\\s+<(.*)>\\s+\\(.*\\)");
 	public static final Pattern WAITING_TO_LOCK = Pattern.compile("- waiting to lock\\s+<(.*)>");
+	public static final Pattern WAITING_ON = Pattern.compile("- waiting on\\s+<(.*)>");
 	
 	public static final DateFormat THREAD_DUMP_TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy-mm-dd kk:mm:ss");
 	

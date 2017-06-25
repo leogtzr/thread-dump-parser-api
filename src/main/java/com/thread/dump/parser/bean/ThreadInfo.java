@@ -6,7 +6,7 @@ public class ThreadInfo {
 	private String name;
 	private String nativeId;
 	private String state;
-	private String rawData;
+	private String stackTrace;
 	
 	public String getName() {
 		return name;
@@ -32,12 +32,12 @@ public class ThreadInfo {
 		this.state = state;
 	}
 	
-	public String getRawData() {
-		return rawData;
+	public String getStackTrace() {
+		return stackTrace;
 	}
 	
-	public void setRawData(final String rawData) {
-		this.rawData = rawData;
+	public void setStackTrace(final String stackTrace) {
+		this.stackTrace = stackTrace;
 	}
 
 	public String getId() {
