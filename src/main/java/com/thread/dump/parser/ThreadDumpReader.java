@@ -66,13 +66,19 @@ public class ThreadDumpReader {
 		}
 		
 		final Map<StackTraceLock, Map<String, ThreadInfo>> lockingInfo = ThreadParsing.lockingInfo(threads);
-		System.out.println(lockingInfo.get(StackTraceLock.LOCKED));
-		System.out.println("~~~~~~~~~~~~~~");
-		System.out.println(lockingInfo.get(StackTraceLock.WAITING_TO_LOCK));
-		System.out.println("~~~~~~~~~~~~~~");
-		System.out.println(lockingInfo.get(StackTraceLock.PARKING_TO_WAITT_FOR));
-		System.out.println("~~~~~~~~~~~~~~");
-		System.out.println(lockingInfo.get(StackTraceLock.WAITING_ON));
+		printLockingThreadInformation(lockingInfo, StackTraceLock.WAITING_ON);
+		
+	}
+	
+	private static void printLockingThreadInformation(
+			final Map<StackTraceLock, Map<String, ThreadInfo>> lockingInfo, final StackTraceLock stackTraceLock) {
+		
+		lockingInfo.get(stackTraceLock).forEach((k, v) -> {
+			System.out.println(String.format("id: %s, thread: '%s'", k, v));
+			if (lockingInfo.get(StackTraceLock.LOCKED).containsKey(k)) {
+				// @PENDING
+			}
+		});
 		
 	}
 	
