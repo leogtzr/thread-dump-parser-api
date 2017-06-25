@@ -69,23 +69,19 @@ public class ThreadParsing {
 		final Map<StackTraceLock, Map<String, ThreadInfo>> stackTrace = new HashMap<>();
 		initializeStackTrace(stackTrace);
 		
-		threads.stream().
-			forEach(thread -> {
-				
-				for (final String stackTraceLine : thread.getStackTrace().split(ParsingConstants.NEW_LINE)) {
-					if (stackTraceLine.contains(PatternConstants.LOCKED_TEXT)) {
-						extractLocked(stackTraceLine, thread, stackTrace);
-					} else if (stackTraceLine.contains(PatternConstants.PARKING_TO_WAIT_FOR_TEXT)) {
-						extractParkingToWaitFor(stackTraceLine, thread, stackTrace);
-					} else if (stackTraceLine.contains(PatternConstants.WAITING_ON_TEXT)) {
-						// @PENDING
-						extractWaitingOn(stackTraceLine, thread, stackTrace);
-					} else if (stackTraceLine.contains(PatternConstants.WAITING_TO_LOCK_TEXT)) {
-						extractWaitingToLock(stackTraceLine, thread, stackTrace);
-					}
-					
+		threads.stream().filter(thread -> thread.getStackTrace() != null).forEach(thread -> {
+			for (final String stackTraceLine : thread.getStackTrace().split(ParsingConstants.NEW_LINE)) {
+				if (stackTraceLine.contains(PatternConstants.LOCKED_TEXT)) {
+					extractLocked(stackTraceLine, thread, stackTrace);
+				} else if (stackTraceLine.contains(PatternConstants.PARKING_TO_WAIT_FOR_TEXT)) {
+					extractParkingToWaitFor(stackTraceLine, thread, stackTrace);
+				} else if (stackTraceLine.contains(PatternConstants.WAITING_ON_TEXT)) {
+					extractWaitingOn(stackTraceLine, thread, stackTrace);
+				} else if (stackTraceLine.contains(PatternConstants.WAITING_TO_LOCK_TEXT)) {
+					extractWaitingToLock(stackTraceLine, thread, stackTrace);
 				}
-			});
+			}
+		});
 		
 		return stackTrace;
 		
