@@ -2,13 +2,20 @@ package com.thread.dump.parser.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.thread.dump.parser.bean.StackTraceLock;
 import com.thread.dump.parser.bean.ThreadInfo;
 
+/**
+ * @author Leo Gutiérrez
+ */
 public class ThreadParsing {
 	
 	private ThreadParsing() {}
@@ -57,21 +64,64 @@ public class ThreadParsing {
 		}
 	}
 	
-	public static boolean isThreadWaitingToAcquireLock(final String stackTrace) {
-		return PatternConstants.WAITING_TO_LOCK.matcher(stackTrace).find();
-	}
-	
-	public static boolean isThreadHoldingLock(final String stackTrace) {
-		return PatternConstants.THREAD_LOCKED.matcher(stackTrace).find();
-	}
-	
-	public static void retrieveLockingThreads(final String stackTrace) {
-		final Matcher threadHoldingMatcher = PatternConstants.THREAD_LOCKED.matcher(stackTrace);
+	public static Map<StackTraceLock, Map<String, ThreadInfo>> lockingInfo(final List<ThreadInfo> threads) {
 		
-		while (threadHoldingMatcher.find()) {
-			System.out.println(threadHoldingMatcher.group(1));
+		final Map<StackTraceLock, Map<String, ThreadInfo>> stackTrace = new HashMap<>();
+		initializeStackTrace(stackTrace);
+		
+		threads.stream().
+			forEach(thread -> {
+				
+				for (final String stackTraceLine : thread.getRawData().split(ParsingConstants.NEW_LINE)) {
+					if (stackTraceLine.contains(PatternConstants.LOCKED_TEXT)) {
+						extractLocked(stackTraceLine, thread, stackTrace);
+					} else if (stackTraceLine.contains(PatternConstants.PARKING_TO_WAIT_FOR_TEXT)) {
+						// @PENDING
+					} else if (stackTraceLine.contains(PatternConstants.WAITING_ON_TEXT)) {
+						// @PENDING
+					} else if (stackTraceLine.contains(PatternConstants.WAITING_TO_LOCK_TEXT)) {
+						extractWaitingToLock(stackTraceLine, thread, stackTrace);
+					}
+					
+				}
+			});
+		
+		return stackTrace;
+		
+	}
+	
+	private static void initializeStackTrace(final Map<StackTraceLock, Map<String, ThreadInfo>> stackTrace) {
+		for (final StackTraceLock stackTraceLock : StackTraceLock.values()) {
+			if (stackTrace.get(stackTraceLock) == null) {
+				final Map<String, ThreadInfo> threadLockInformation = new HashMap<>();
+				stackTrace.put(stackTraceLock, threadLockInformation);
+			}
 		}
-		
 	}
-
+	
+	private static void extractLocked(
+			final String stackTraceLine, 
+			final ThreadInfo threadInfo,
+			final Map<StackTraceLock, Map<String, ThreadInfo>> stackTrace) {
+		
+		final Matcher threadLockedMatcher = PatternConstants.THREAD_LOCKED.matcher(stackTraceLine);
+		if (threadLockedMatcher.find()) {
+			final Map<String, ThreadInfo> lockeds = stackTrace.get(StackTraceLock.LOCKED);
+			final String lockedId = threadLockedMatcher.group(1);
+			lockeds.put(lockedId, threadInfo);
+		}
+	}
+	
+	private static void extractWaitingToLock(final String stackTraceLine, 
+			final ThreadInfo threadInfo,
+			final Map<StackTraceLock, Map<String, ThreadInfo>> stackTrace) {
+		
+		final Matcher waitingToLockMatcher = PatternConstants.WAITING_TO_LOCK.matcher(stackTraceLine);
+		if (waitingToLockMatcher.find()) {
+			final Map<String, ThreadInfo> waitingToLock = stackTrace.get(StackTraceLock.WAITING_TO_LOCK);
+			final String lockedId = waitingToLockMatcher.group(1);
+			waitingToLock.put(lockedId, threadInfo);
+		}
+	}
+	
 }

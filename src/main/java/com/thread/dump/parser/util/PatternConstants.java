@@ -17,6 +17,11 @@ public class PatternConstants {
 	
 	public static final DateFormat THREAD_DUMP_TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy-mm-dd kk:mm:ss");
 	
+	public static final String LOCKED_TEXT = "- locked <";
+	public static final String PARKING_TO_WAIT_FOR_TEXT = "- parking to wait for";
+	public static final String WAITING_ON_TEXT = "- waiting on <";
+	public static final String WAITING_TO_LOCK_TEXT = "- waiting to lock <";
+	
 	private PatternConstants() {}
 	
 }

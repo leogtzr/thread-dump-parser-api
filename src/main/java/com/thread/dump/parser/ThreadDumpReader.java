@@ -1,14 +1,16 @@
 package com.thread.dump.parser;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
+import com.thread.dump.parser.bean.StackTraceLock;
 import com.thread.dump.parser.bean.ThreadInfo;
 import com.thread.dump.parser.util.ParsingConstants;
 import com.thread.dump.parser.util.PatternConstants;
@@ -63,12 +65,15 @@ public class ThreadDumpReader {
 			throw new IOException("Unable to generate thread dump information.", ex);
 		}
 		
-		printThreadsInformation(threads);
+		final Map<StackTraceLock, Map<String, ThreadInfo>> lockingInfo = ThreadParsing.lockingInfo(threads);
+		System.out.println(lockingInfo.get(StackTraceLock.LOCKED));
+		System.out.println("~~~~~~~~~~~~~~");
+		System.out.println(lockingInfo.get(StackTraceLock.WAITING_TO_LOCK));
+		System.out.println("~~~~~~~~~~~~~~");
+		System.out.println(lockingInfo.get(StackTraceLock.PARKING_TO_WAITT_FOR));
+		System.out.println("~~~~~~~~~~~~~~");
+		System.out.println(lockingInfo.get(StackTraceLock.WAITING_ON));
 		
-	}
-	
-	private void printThreadsInformation(final List<ThreadInfo> threads) {
-		threads.stream().forEach(System.out::println);
 	}
 	
 }

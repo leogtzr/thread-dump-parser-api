@@ -50,8 +50,7 @@ public class ThreadInfo {
 
 	@Override
 	public String toString() {
-		return "ThreadInfo [name=" + name + ", state=" + state + ", id=" + id + ", nativeId=" + nativeId + ", rawData="
-				+ rawData + "]";
+		return "ThreadInfo [name=" + name + ", state=" + state + ", id=" + id + ", nativeId=" + nativeId + "]";
 	}
 	
 }
