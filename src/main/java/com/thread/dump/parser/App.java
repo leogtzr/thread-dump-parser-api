@@ -9,8 +9,9 @@ import com.thread.dump.parser.bean.ThreadInfo;
  */
 public class App {
 	public static void main(final String[] args) throws IOException {
+		
 		final ThreadDumpReader threadDumpReader = new ThreadDumpReader(args[0]);
-		for (final ThreadInfo thread : threadDumpReader.reads()) {
+		for (final ThreadInfo thread : threadDumpReader.read()) {
 			// 
 		}
 	}

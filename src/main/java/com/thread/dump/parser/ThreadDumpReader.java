@@ -24,7 +24,7 @@ public class ThreadDumpReader {
 		this.threadDumpFilePath = threadDumpFilePath;
 	}
 	
-	public  List<ThreadInfo> reads() throws IOException {
+	public  List<ThreadInfo> read() throws IOException {
 		
 		final List<ThreadInfo> threads = new ArrayList<>();
 		
