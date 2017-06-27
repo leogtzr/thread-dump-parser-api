@@ -3,9 +3,7 @@ package com.thread.dump.parser;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -13,7 +11,6 @@ import java.util.Optional;
 import com.thread.dump.parser.bean.StackTraceLock;
 import com.thread.dump.parser.bean.ThreadInfo;
 import com.thread.dump.parser.util.ParsingConstants;
-import com.thread.dump.parser.util.PatternConstants;
 import com.thread.dump.parser.util.ThreadParsing;
 
 /**
@@ -27,15 +24,13 @@ public class ThreadDumpReader {
 		this.threadDumpFilePath = threadDumpFilePath;
 	}
 	
-	public void parse() throws IOException {
+	public  List<ThreadInfo> reads() throws IOException {
 		
 		final List<ThreadInfo> threads = new ArrayList<>();
 		
 		try {
 			try (final BufferedReader br = new BufferedReader(new FileReader(threadDumpFilePath))) {
 				
-				// Read thread's timestamp ...
-				final Date threadDumpTimesTamp = PatternConstants.THREAD_DUMP_TIMESTAMP_FORMAT.parse(br.readLine());
 
 				for (String line = br.readLine(); line != null; line = br.readLine()) {
 					if (line.startsWith(ParsingConstants.THREAD_INFORMATION_BEGIN)) {
@@ -61,12 +56,11 @@ public class ThreadDumpReader {
 				
 			}
 			
-		} catch (IOException | ParseException ex) {
+		} catch (final IOException ex) {
 			throw new IOException("Unable to generate thread dump information.", ex);
 		}
 		
-		final Map<StackTraceLock, Map<String, ThreadInfo>> lockingInfo = ThreadParsing.lockingInfo(threads);
-		printLockingThreadInformation(lockingInfo, StackTraceLock.WAITING_ON);
+		return threads; 
 		
 	}
 	

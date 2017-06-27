@@ -69,8 +69,9 @@ public class ThreadParsing {
 		final Map<StackTraceLock, Map<String, ThreadInfo>> stackTrace = new HashMap<>();
 		initializeStackTrace(stackTrace);
 		
-		threads.stream().filter(thread -> thread.getStackTrace() != null).forEach(thread -> {
-			for (final String stackTraceLine : thread.getStackTrace().split(ParsingConstants.NEW_LINE)) {
+		threads.stream().
+			filter(thread -> thread.getStackTrace().isPresent()).forEach(thread -> {
+			for (final String stackTraceLine : thread.getStackTrace().get().split(ParsingConstants.NEW_LINE)) {
 				if (stackTraceLine.contains(PatternConstants.LOCKED_TEXT)) {
 					extractLocked(stackTraceLine, thread, stackTrace);
 				} else if (stackTraceLine.contains(PatternConstants.PARKING_TO_WAIT_FOR_TEXT)) {

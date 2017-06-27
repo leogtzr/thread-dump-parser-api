@@ -1,5 +1,10 @@
 package com.thread.dump.parser.bean;
 
+import java.util.Optional;
+
+/**
+ * @author Leo Gutiérrez
+ */
 public class ThreadInfo {
 
 	private String id;
@@ -32,8 +37,8 @@ public class ThreadInfo {
 		this.state = state;
 	}
 	
-	public String getStackTrace() {
-		return stackTrace;
+	public Optional<String> getStackTrace() {
+		return Optional.<String>ofNullable(stackTrace);
 	}
 	
 	public void setStackTrace(final String stackTrace) {
@@ -50,7 +55,7 @@ public class ThreadInfo {
 
 	@Override
 	public String toString() {
-		return "ThreadInfo [name=" + name + ", state=" + state + ", id=" + id + ", nativeId=" + nativeId + "]";
+		return "ThreadInfo [name=" + name + ", state=" + state + ", id=" + id + ", nativeId=" + nativeId + ", raw: " + ((stackTrace != null) ? " not null " : " null ");
 	}
 	
 }
