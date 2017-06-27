@@ -55,7 +55,7 @@ public class ThreadInfo {
 
 	@Override
 	public String toString() {
-		return "ThreadInfo [name=" + name + ", state=" + state + ", id=" + id + ", nativeId=" + nativeId + ", raw: " + ((stackTrace != null) ? " not null " : " null ");
+		return "ThreadInfo [name=" + name + ", state=" + state + ", id=" + id + ", nativeId=" + nativeId + "]";
 	}
 	
 }
