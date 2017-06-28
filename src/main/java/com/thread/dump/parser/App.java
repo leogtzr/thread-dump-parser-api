@@ -10,9 +10,16 @@ import com.thread.dump.parser.bean.ThreadInfo;
 public class App {
 	public static void main(final String[] args) throws IOException {
 		
-		final ThreadDumpReader threadDumpReader = new ThreadDumpReader(args[0]);
-		for (final ThreadInfo thread : threadDumpReader.read()) {
-			// 
-		}
+		final ThreadDumpReader threadsReader = new ThreadDumpReader(args[0]);
+		
+		threadsReader.read().
+			stream().
+			filter(thread -> thread.getStackTrace().isPresent()).forEach(thread -> {
+				System.out.println(thread.getName());
+				System.out.println(thread.getId());
+				System.out.println(thread.getNativeId());
+				System.out.println(thread.getStackTrace().get());
+			});
+		
 	}
 }
