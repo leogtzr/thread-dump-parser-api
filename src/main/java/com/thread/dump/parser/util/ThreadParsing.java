@@ -1,5 +1,19 @@
 package com.thread.dump.parser.util;
 
+import static com.thread.dump.parser.util.PatternConstants.ThreadNameFieldsIndex.ID;
+import static com.thread.dump.parser.util.PatternConstants.ThreadNameFieldsIndex.NAME;
+import static com.thread.dump.parser.util.PatternConstants.ThreadNameFieldsIndex.NATIVE_ID;
+
+import static com.thread.dump.parser.util.PatternConstants.StateFieldsIndex.STATE;
+
+import static com.thread.dump.parser.util.PatternConstants.ThreadLockedFieldsIndex.LOCKED_ID;
+
+import static com.thread.dump.parser.util.PatternConstants.ThreadWaitingToLockFieldsIndex.WAITING_TO_LOCK;
+
+import static com.thread.dump.parser.util.PatternConstants.ThreadParkingToWaitFor.WAITING_FOR_ID;
+
+import static com.thread.dump.parser.util.PatternConstants.ThreadWaitingOn.WAITING_ON_ID;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,9 +41,9 @@ public class ThreadParsing {
 		if (matcher.find() && matcher.groupCount() == ParsingConstants.THREAD_NAME_FIELD_COUNT) {
 			
 			final ThreadInfo threadInfo = new ThreadInfo();
-			threadInfo.setName(matcher.group(1));
-			threadInfo.setId(matcher.group(2));
-			threadInfo.setNativeId(matcher.group(3));
+			threadInfo.setName(matcher.group(NAME.get()));
+			threadInfo.setId(matcher.group(ID.get()));
+			threadInfo.setNativeId(matcher.group(NATIVE_ID.get()));
 			
 			return Optional.<ThreadInfo>of(threadInfo);
 		}
@@ -43,7 +57,7 @@ public class ThreadParsing {
 		final Matcher threadStateMatcher = PatternConstants.STATE.matcher(line);
 		
 		if (threadStateMatcher.find()) {
-			final String[] stateFields = threadStateMatcher.group(1).split(" ");
+			final String[] stateFields = threadStateMatcher.group(STATE.get()).split(" ");
 			return Optional.<Thread.State>of(Thread.State.valueOf(stateFields[0]));
 		}
 		
@@ -105,7 +119,7 @@ public class ThreadParsing {
 		final Matcher threadLockedMatcher = PatternConstants.THREAD_LOCKED.matcher(stackTraceLine);
 		if (threadLockedMatcher.find()) {
 			final Map<String, ThreadInfo> lockeds = stackTrace.get(StackTraceLock.LOCKED);
-			final String lockedId = threadLockedMatcher.group(1);
+			final String lockedId = threadLockedMatcher.group(LOCKED_ID.get());
 			lockeds.put(lockedId, threadInfo);
 		}
 		
@@ -118,7 +132,7 @@ public class ThreadParsing {
 		final Matcher waitingToLockMatcher = PatternConstants.WAITING_TO_LOCK.matcher(stackTraceLine);
 		if (waitingToLockMatcher.find()) {
 			final Map<String, ThreadInfo> waitingToLock = stackTrace.get(StackTraceLock.WAITING_TO_LOCK);
-			final String lockedId = waitingToLockMatcher.group(1);
+			final String lockedId = waitingToLockMatcher.group(WAITING_TO_LOCK.get());
 			waitingToLock.put(lockedId, threadInfo);
 		}
 	}
@@ -127,10 +141,10 @@ public class ThreadParsing {
 			final ThreadInfo threadInfo,
 			final Map<StackTraceLock, Map<String, ThreadInfo>> stackTrace) {
 		
-		final Matcher parkingToWaitForMatcher = PatternConstants.LOCK_WAIT.matcher(stackTraceLine);
+		final Matcher parkingToWaitForMatcher = PatternConstants.PARKING_TO_WAIT_FOR.matcher(stackTraceLine);
 		if (parkingToWaitForMatcher.find()) {
 			final Map<String, ThreadInfo> waitingToLock = stackTrace.get(StackTraceLock.PARKING_TO_WAITT_FOR);
-			final String lockedId = parkingToWaitForMatcher.group(1);
+			final String lockedId = parkingToWaitForMatcher.group(WAITING_FOR_ID.get());
 			waitingToLock.put(lockedId, threadInfo);
 		}
 	}
@@ -142,7 +156,7 @@ public class ThreadParsing {
 		final Matcher waitingOnMatcher = PatternConstants.WAITING_ON.matcher(stackTraceLine);
 		if (waitingOnMatcher.find()) {
 			final Map<String, ThreadInfo> waitingToLock = stackTrace.get(StackTraceLock.WAITING_ON);
-			final String lockedId = waitingOnMatcher.group(1);
+			final String lockedId = waitingOnMatcher.group(WAITING_ON_ID.get());
 			waitingToLock.put(lockedId, threadInfo);
 		}
 	}
