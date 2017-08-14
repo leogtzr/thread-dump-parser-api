@@ -10,5 +10,9 @@ threadsReader.read().
 		System.out.println(thread.getId());
 		System.out.println(thread.getNativeId());
 		System.out.println(thread.getStackTrace().get());
+
+		if (thread.getStackTrace().isPresent()) {
+			// ... 	
+		}
 	});
 ```

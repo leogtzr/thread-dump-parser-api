@@ -31,7 +31,6 @@ public class ThreadDumpReader {
 		try {
 			try (final BufferedReader br = new BufferedReader(new FileReader(threadDumpFilePath))) {
 				
-
 				for (String line = br.readLine(); line != null; line = br.readLine()) {
 					if (line.startsWith(ParsingConstants.THREAD_INFORMATION_BEGIN)) {
 						
