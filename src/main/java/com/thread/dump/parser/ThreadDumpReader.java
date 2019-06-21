@@ -28,33 +28,32 @@ public class ThreadDumpReader {
 		
 		final List<ThreadInfo> threads = new ArrayList<>();
 		
-		try {
-			try (final BufferedReader br = new BufferedReader(new FileReader(threadDumpFilePath))) {
-				
-				for (String line = br.readLine(); line != null; line = br.readLine()) {
-					if (line.startsWith(ParsingConstants.THREAD_INFORMATION_BEGIN)) {
-						
-						final Optional<ThreadInfo> threadInfo = ThreadParsing.extractThreadInfoFromLine(line);
-						if (threadInfo.isPresent()) {
-							final ThreadInfo thread = threadInfo.get();
-							
-							final Optional<Thread.State> state = ThreadParsing.extractThreadState(br.readLine());
-							if (state.isPresent()) {
-								thread.setState(state.get().toString());
-							}
-							
-							final Optional<String> stacktrace = ThreadParsing.extractThreadStackTrace(br);
-							if (stacktrace.isPresent()) {
-								thread.setStackTrace(stacktrace.get());
-							}
-							
-							threads.add(thread);
+
+		try (final BufferedReader br = new BufferedReader(new FileReader(threadDumpFilePath))) {
+
+			for (String line = br.readLine(); line != null; line = br.readLine()) {
+				if (line.startsWith(ParsingConstants.THREAD_INFORMATION_BEGIN)) {
+
+					final Optional<ThreadInfo> threadInfo = ThreadParsing.extractThreadInfoFromLine(line);
+
+					if (threadInfo.isPresent()) {
+						final ThreadInfo thread = threadInfo.get();
+
+						final Optional<Thread.State> state = ThreadParsing.extractThreadState(br.readLine());
+						if (state.isPresent()) {
+							thread.setState(state.get().toString());
 						}
+
+						final Optional<String> stacktrace = ThreadParsing.extractThreadStackTrace(br);
+						if (stacktrace.isPresent()) {
+							thread.setStackTrace(stacktrace.get());
+						}
+
+						threads.add(thread);
 					}
 				}
-				
 			}
-			
+
 		} catch (final IOException ex) {
 			throw new IOException("Unable to generate thread dump information.", ex);
 		}

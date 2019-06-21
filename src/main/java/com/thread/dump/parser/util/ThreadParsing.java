@@ -32,8 +32,6 @@ import com.thread.dump.parser.bean.ThreadInfo;
  */
 public class ThreadParsing {
 	
-	private ThreadParsing() {}
-	
 	public static Optional<ThreadInfo> extractThreadInfoFromLine(final String threadHeaderLine) {
 		
 		final Matcher matcher = PatternConstants.THREAD_NAME.matcher(threadHeaderLine);
@@ -125,7 +123,8 @@ public class ThreadParsing {
 		
 	}
 	
-	private static void extractWaitingToLock(final String stackTraceLine, 
+	private static void extractWaitingToLock(
+			final String stackTraceLine,
 			final ThreadInfo threadInfo,
 			final Map<StackTraceLock, Map<String, ThreadInfo>> stackTrace) {
 		
@@ -137,7 +136,8 @@ public class ThreadParsing {
 		}
 	}
 	
-	private static void extractParkingToWaitFor(final String stackTraceLine, 
+	private static void extractParkingToWaitFor(
+			final String stackTraceLine,
 			final ThreadInfo threadInfo,
 			final Map<StackTraceLock, Map<String, ThreadInfo>> stackTrace) {
 		
@@ -160,5 +160,7 @@ public class ThreadParsing {
 			waitingToLock.put(lockedId, threadInfo);
 		}
 	}
+
+	private ThreadParsing() {}
 	
 }

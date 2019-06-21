@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.thread.dump.parser.bean.ThreadInfo;
 
 /**
- * @author Leo Gutiérrez
+ * @author Leo Gutiérrez <leogutierrezramirez@gmail.com>
  */
 public class App {
 	public static void main(final String[] args) throws IOException {
@@ -14,7 +14,8 @@ public class App {
 		
 		threadsReader.read().
 			stream().
-			filter(thread -> thread.getStackTrace().isPresent()).forEach(thread -> {
+			filter(thread -> thread.getStackTrace()
+					.isPresent()).forEach(thread -> {
 				System.out.println(thread.getName());
 				System.out.println(thread.getId());
 				System.out.println(thread.getNativeId());
