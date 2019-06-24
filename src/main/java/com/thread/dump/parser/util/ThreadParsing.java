@@ -5,13 +5,9 @@ import static com.thread.dump.parser.util.PatternConstants.ThreadNameFieldsIndex
 import static com.thread.dump.parser.util.PatternConstants.ThreadNameFieldsIndex.NATIVE_ID;
 
 import static com.thread.dump.parser.util.PatternConstants.StateFieldsIndex.STATE;
-
 import static com.thread.dump.parser.util.PatternConstants.ThreadLockedFieldsIndex.LOCKED_ID;
-
 import static com.thread.dump.parser.util.PatternConstants.ThreadWaitingToLockFieldsIndex.WAITING_TO_LOCK;
-
 import static com.thread.dump.parser.util.PatternConstants.ThreadParkingToWaitFor.WAITING_FOR_ID;
-
 import static com.thread.dump.parser.util.PatternConstants.ThreadWaitingOn.WAITING_ON_ID;
 
 import java.io.BufferedReader;
@@ -42,6 +38,10 @@ public class ThreadParsing {
 			threadInfo.setName(matcher.group(NAME.get()));
 			threadInfo.setId(matcher.group(ID.get()));
 			threadInfo.setNativeId(matcher.group(NATIVE_ID.get()));
+
+			if (threadHeaderLine.contains(" daemon ")) {
+				threadInfo.setDaemon(true);
+			}
 			
 			return Optional.<ThreadInfo>of(threadInfo);
 		}

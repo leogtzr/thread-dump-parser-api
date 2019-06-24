@@ -12,6 +12,7 @@ public class ThreadInfo {
 	private String nativeId;
 	private String state;
 	private String stackTrace;
+	private boolean daemon;
 	
 	public String getName() {
 		return name;
@@ -53,9 +54,23 @@ public class ThreadInfo {
 		this.id = id;
 	}
 
+	public boolean isDaemon() {
+		return daemon;
+	}
+
+	public void setDaemon(final boolean daemon) {
+		this.daemon = daemon;
+	}
+
 	@Override
 	public String toString() {
-		return "ThreadInfo [name=" + name + ", state=" + state + ", id=" + id + ", nativeId=" + nativeId + "]";
+		return "ThreadInfo{" +
+				"id='" + id + '\'' +
+				", name='" + name + '\'' +
+				", nativeId='" + nativeId + '\'' +
+				", state='" + state + '\'' +
+				", stackTrace='" + stackTrace + '\'' +
+				", daemon=" + daemon +
+				'}';
 	}
-	
 }

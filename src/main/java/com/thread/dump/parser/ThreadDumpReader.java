@@ -48,20 +48,17 @@ public class ThreadDumpReader {
 			throw new IOException("Unable to generate thread dump information.", ex);
 		}
 
-
 		return threads;
 	}
 
 
 	
 	public  List<ThreadInfo> fromFile(final String threadDumpFilePath) throws IOException {
-		final List<ThreadInfo> threads = read(new FileReader(threadDumpFilePath));
-		return threads;
+		return read(new FileReader(threadDumpFilePath));
 	}
 
 	public  List<ThreadInfo> fromString(final String content) throws IOException {
-		final List<ThreadInfo> threads = read(new StringReader(content));
-		return threads;
+		return read(new StringReader(content));
 	}
 	
 	private static void printLockingThreadInformation(
