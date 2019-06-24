@@ -10,9 +10,9 @@ import com.thread.dump.parser.bean.ThreadInfo;
 public class App {
 	public static void main(final String[] args) throws IOException {
 		
-		final ThreadDumpReader threadsReader = new ThreadDumpReader(args[0]);
+		final ThreadDumpReader threadsReader = new ThreadDumpReader();
 		
-		threadsReader.read().
+		threadsReader.fromFile("tdump.sample").
 			stream().
 			filter(thread -> thread.getStackTrace()
 					.isPresent()).forEach(thread -> {
@@ -23,7 +23,6 @@ public class App {
 				if (thread.getStackTrace().isPresent()) {
 				    // ...
                 }
-
 			});
 		
 	}

@@ -2,4 +2,6 @@
 .project
 .classpath
 thread-dump-parser.iml
-
+.externalToolBuilders/
+.settings/
+.idea/

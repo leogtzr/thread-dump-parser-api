@@ -1,8 +1,6 @@
 package com.thread.dump.parser;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,19 +15,11 @@ import com.thread.dump.parser.util.ThreadParsing;
  * @author Leo Gutiérrez
  */
 public class ThreadDumpReader {
-	
-	private final String threadDumpFilePath;
-	
-	public ThreadDumpReader(final String threadDumpFilePath) {
-		this.threadDumpFilePath = threadDumpFilePath;
-	}
-	
-	public  List<ThreadInfo> read() throws IOException {
-		
-		final List<ThreadInfo> threads = new ArrayList<>();
-		
 
-		try (final BufferedReader br = new BufferedReader(new FileReader(threadDumpFilePath))) {
+	private List<ThreadInfo> read(final Reader reader) throws IOException {
+		final List<ThreadInfo> threads = new ArrayList<>();
+
+		try (final BufferedReader br = new BufferedReader(reader)) {
 
 			for (String line = br.readLine(); line != null; line = br.readLine()) {
 				if (line.startsWith(ParsingConstants.THREAD_INFORMATION_BEGIN)) {
@@ -57,9 +47,21 @@ public class ThreadDumpReader {
 		} catch (final IOException ex) {
 			throw new IOException("Unable to generate thread dump information.", ex);
 		}
-		
-		return threads; 
-		
+
+
+		return threads;
+	}
+
+
+	
+	public  List<ThreadInfo> fromFile(final String threadDumpFilePath) throws IOException {
+		final List<ThreadInfo> threads = read(new FileReader(threadDumpFilePath));
+		return threads;
+	}
+
+	public  List<ThreadInfo> fromString(final String content) throws IOException {
+		final List<ThreadInfo> threads = read(new StringReader(content));
+		return threads;
 	}
 	
 	private static void printLockingThreadInformation(

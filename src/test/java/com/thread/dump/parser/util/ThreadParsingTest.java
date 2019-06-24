@@ -1,5 +1,6 @@
 package com.thread.dump.parser.util;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Optional;
@@ -28,6 +29,30 @@ public class ThreadParsingTest {
 	public void shouldReturnNonEmptyThreadState() {
 		final Optional<Thread.State> threadState = ThreadParsing.extractThreadState(THREAD_STATE);
 		assertTrue(threadState.isPresent());
+	}
+
+	@Test
+	public void shouldReturnThreadState() {
+		final Thread.State expectedState = Thread.State.WAITING;
+		final Optional<Thread.State> state = ThreadParsing.extractThreadState(THREAD_STATE);
+		assertTrue(state.isPresent());
+		final Thread.State threadState = state.get();
+		assertEquals(expectedState, threadState);
+	}
+
+	@Test
+	public void testShouldIdentifyDaemonThread() {
+
+//		threads, err := ParseFrom(strings.NewReader(daemonThreadInformation))
+//		if err != nil {
+//			t.Error("Error parsing daemon thread")
+//		}
+//		if len(threads) != 1 {
+//			t.Error("Error parsing single daemon thread dump")
+//		}
+//		if !threads[0].Daemon {
+//			t.Error("Thread should be daemon")
+//		}
 	}
 	
 }
