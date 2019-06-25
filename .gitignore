@@ -5,3 +5,5 @@ thread-dump-parser.iml
 .externalToolBuilders/
 .settings/
 .idea/
+.idea/*
+.idea

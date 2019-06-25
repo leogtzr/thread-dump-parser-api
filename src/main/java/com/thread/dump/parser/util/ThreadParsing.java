@@ -233,8 +233,7 @@ public class ThreadParsing {
 		if (matcher.matches()) {
 			final String[] fields = stacktraceLine.split("\\s+");
 			String s = joinFieldsFromStackTraceMethod(fields);
-			System.out.printf("Returning[%s]\n", s);
-			return s;
+			return s.trim();
 		}
 		return "";
 	}

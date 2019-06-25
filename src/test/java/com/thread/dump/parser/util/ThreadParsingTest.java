@@ -164,12 +164,12 @@ public class ThreadParsingTest {
 		assertFalse(threads.isEmpty());
 
 		final Map<String, Integer> mostUsedMethods = ThreadParsing.mostUsedMethods(threads);
-		System.out.println(mostUsedMethods);
+		// System.out.println(mostUsedMethods);
 
 		final String javaMethodName = "java.lang.Object.wait(Native Method)";
-		final long expectedNumberOfThreadsWithMethodName = 82;
+		final int expectedNumberOfThreadsWithMethodName = 82;
 
-		assertEquals((Long)expectedNumberOfThreadsWithMethodName, mostUsedMethods.get(javaMethodName));
+		assertEquals((Integer)expectedNumberOfThreadsWithMethodName, mostUsedMethods.get(javaMethodName));
 	}
 	
 }
