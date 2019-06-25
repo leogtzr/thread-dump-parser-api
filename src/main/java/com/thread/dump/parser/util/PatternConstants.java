@@ -108,6 +108,21 @@ public class PatternConstants {
 	public static final String WAITING_TO_LOCK_TEXT = "- waiting to lock <";
 
 	public static final Pattern LOCKED_RGX = Pattern.compile("\\s*\\- locked\\s*<(.*)>\\s*\\(a\\s(.*)\\)");
+
+	public static enum LockedIndex {
+		ID(1),
+		CLASS(2)
+		;
+		private final int index;
+		LockedIndex(final int index) {
+			this.index = index;
+		}
+		public int get() {
+			return index;
+		}
+	}
+
+	public static final Pattern STACKTRACE_RGX_METHOD_NAME = Pattern.compile("at\\s+(.*)$");
 	
 	private PatternConstants() {}
 	

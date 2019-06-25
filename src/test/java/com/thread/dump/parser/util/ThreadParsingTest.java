@@ -113,7 +113,7 @@ public class ThreadParsingTest {
 	}
 
 	@Test
-	public void TestHolds() throws IOException {
+	public void shouldRetrieveHolds() throws IOException {
 		final int expectedNumberOfThreads = 1;
 		final int expectedNumberOfLocksInThread = 3;
 
@@ -135,7 +135,41 @@ public class ThreadParsingTest {
 				assertEquals(expectedLocks[i], locks.get(i));
 			}
 		});
+	}
 
+	@Test
+	public void shouldRetrieveHoldsForThread() throws IOException {
+		final int expectedNumberOfLocksInThreadWithLockInfo = 3;
+		final Locked[] expectedLocks = {
+				new Locked("0x0000000682e5f948", "sun.security.provider.Sun"),
+				new Locked("0x00000007bc531138", "java.lang.Object"),
+				new Locked("0x00000007bbbac500", "sun.security.ssl.SSLEngineImpl")
+		};
+
+		final List<ThreadInfo> threads = new ThreadDumpReader().fromString(THREAD_INFO_WITH_LOCKS);
+		assertFalse(threads.isEmpty());
+
+		for (final ThreadInfo thread : threads) {
+			final List<Locked> holds = ThreadParsing.holdsForThread(thread);
+			assertEquals(expectedNumberOfLocksInThreadWithLockInfo, holds.size());
+			for (int i = 0; i < holds.size(); i++) {
+				assertEquals(expectedLocks[i], holds.get(i));
+			}
+		}
+	}
+
+	@Test
+	public void shouldIdentifyTopMethodsInThreadDump() throws IOException {
+		final List<ThreadInfo> threads = new ThreadDumpReader().fromFile("tdump.sample");
+		assertFalse(threads.isEmpty());
+
+		final Map<String, Integer> mostUsedMethods = ThreadParsing.mostUsedMethods(threads);
+		System.out.println(mostUsedMethods);
+
+		final String javaMethodName = "java.lang.Object.wait(Native Method)";
+		final long expectedNumberOfThreadsWithMethodName = 82;
+
+		assertEquals((Long)expectedNumberOfThreadsWithMethodName, mostUsedMethods.get(javaMethodName));
 	}
 	
 }
