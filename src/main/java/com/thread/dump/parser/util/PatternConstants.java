@@ -107,7 +107,6 @@ public class PatternConstants {
 	public static final String WAITING_ON_TEXT = "- waiting on <";
 	public static final String WAITING_TO_LOCK_TEXT = "- waiting to lock <";
 
-	// lockedRgx                   = `\s*\- locked\s*<(.*)>\s*\(a\s(.*)\)`
 	public static final Pattern LOCKED_RGX = Pattern.compile("\\s*\\- locked\\s*<(.*)>\\s*\\(a\\s(.*)\\)");
 	
 	private PatternConstants() {}

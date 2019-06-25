@@ -1,9 +1,9 @@
 # thread-dump-parser-api
 
 ```java
-final ThreadDumpReader threadsReader = new ThreadDumpReader(threadDumpFilePath);
+final ThreadDumpReader threadsReader = new ThreadDumpReader();
 
-threadsReader.read().
+threadsReader.fromFile("threaddump.txt").
 	stream().
 	filter(thread -> thread.getStackTrace().isPresent()).forEach(thread -> {
 		System.out.println(thread.getName());
