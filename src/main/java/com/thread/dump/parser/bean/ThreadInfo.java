@@ -1,5 +1,6 @@
 package com.thread.dump.parser.bean;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -63,14 +64,27 @@ public class ThreadInfo {
 	}
 
 	@Override
+	public boolean equals(final Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		final ThreadInfo that = (ThreadInfo) o;
+		return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(nativeId, that.nativeId);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, nativeId);
+	}
+
+	@Override
 	public String toString() {
-		return "ThreadInfo{" +
-				"id='" + id + '\'' +
-				", name='" + name + '\'' +
-				", nativeId='" + nativeId + '\'' +
-				", state='" + state + '\'' +
-				", stackTrace='" + stackTrace + '\'' +
-				", daemon=" + daemon +
-				'}';
+		if (this.isDaemon()) {
+			return String.format("Thread Id: '%s' (daemon), Name: '%s', State: '%s'", this.id, this.name, this.state);
+		}
+		return String.format("Thread Id: '%s', Name: '%s', State: '%s'", this.id, this.name, this.state);
 	}
 }

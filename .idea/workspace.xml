@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="253c8a94-0b93-4200-834c-7325b8a4960e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/bean/Locked.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/ThreadDumpReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/ThreadDumpReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/bean/ThreadInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/bean/ThreadInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/PatternConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/PatternConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/ThreadParsing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/ThreadParsing.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/thread/dump/parser/util/ThreadParsingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/thread/dump/parser/util/ThreadParsingTest.java" afterDir="false" />
     </list>
@@ -22,19 +25,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/thread/dump/parser/util/ThreadParsingTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="728">
+              <caret line="128" column="69" selection-start-line="128" selection-start-column="69" selection-end-line="128" selection-end-column="69" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/thread/dump/parser/util/ThreadParsingTest.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/ThreadParsing.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="797">
-              <caret line="53" column="69" selection-start-line="53" selection-start-column="69" selection-end-line="53" selection-end-column="69" />
+            <state relative-caret-position="101">
+              <caret line="102" column="86" selection-start-line="102" selection-start-column="86" selection-end-line="102" selection-end-column="86" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -43,25 +49,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/bean/ThreadInfo.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/PatternConstants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="559">
-              <caret line="56" column="27" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="27" />
-              <folding>
-                <element signature="e#959#960#0" expanded="true" />
-                <element signature="e#979#980#0" expanded="true" />
-                <element signature="e#1021#1022#0" expanded="true" />
-                <element signature="e#1048#1049#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="838">
+              <caret line="110" column="62" selection-start-line="110" selection-start-column="62" selection-end-line="110" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/App.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/ParsingConstants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+            <state relative-caret-position="406">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -69,8 +69,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/ThreadDumpReader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="759">
-              <caret line="26" column="82" selection-start-line="26" selection-start-column="82" selection-end-line="26" selection-end-column="82" />
+            <state relative-caret-position="352">
+              <caret line="36" column="82" selection-start-line="36" selection-start-column="82" selection-end-line="36" selection-end-column="82" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,25 +78,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/Downloads/jdk-11/lib/src.zip!/java.base/java/io/BufferedReader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="827">
-              <caret line="99" column="46" lean-forward="true" selection-start-line="99" selection-start-column="46" selection-end-line="99" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/ThreadParsing.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2772">
-              <caret line="9" column="97" selection-start-line="9" selection-start-column="97" selection-end-line="9" selection-end-column="97" />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -104,6 +93,11 @@
       <find>parse</find>
       <find>DAEMON_THREAD_INFORMATION</find>
       <find>daemon</find>
+      <find>compile</find>
+      <find>holds(</find>
+      <find>match</find>
+      <find>matcher</find>
+      <find>setStackTrace</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -116,10 +110,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/App.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/ThreadDumpReader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/bean/Locked.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/PatternConstants.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/bean/ThreadInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/ThreadParsing.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/ThreadDumpReader.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/thread/dump/parser/util/ThreadParsingTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/ThreadParsing.java" />
       </list>
     </option>
   </component>
@@ -128,21 +124,6 @@
       <MavenImportingSettings>
         <option name="importAutomatically" value="true" />
       </MavenImportingSettings>
-    </option>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
-        <option value="$PROJECT_DIR$/.idea/compiler.xml" />
-        <option value="$PROJECT_DIR$/.idea/encodings.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_11.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_0.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_all_1_10_17.xml" />
-      </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -186,6 +167,32 @@
               <item name="thread-dump-parser" type="b2602c69:ProjectViewProjectNode" />
               <item name="thread-dump-parser-api" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="parser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thread-dump-parser" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thread-dump-parser-api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="parser" type="462c0819:PsiDirectoryNode" />
+              <item name="bean" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thread-dump-parser" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thread-dump-parser-api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="parser" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="thread-dump-parser" type="b2602c69:ProjectViewProjectNode" />
+              <item name="thread-dump-parser-api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -213,6 +220,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -226,7 +234,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ThreadParsingTest.testShouldIdentifyDaemonThread">
+  <component name="RunManager" selected="JUnit.ThreadParsingTest.TestHolds">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.thread.dump.parser.App" />
       <module name="thread-dump-parser" />
@@ -255,7 +263,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ThreadParsingTest.shouldReturnNonEmptyThreadState" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ThreadParsingTest.TestHolds" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="thread-dump-parser" />
       <extension name="coverage">
         <pattern>
@@ -265,7 +273,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.thread.dump.parser.util" />
       <option name="MAIN_CLASS_NAME" value="com.thread.dump.parser.util.ThreadParsingTest" />
-      <option name="METHOD_NAME" value="shouldReturnNonEmptyThreadState" />
+      <option name="METHOD_NAME" value="TestHolds" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -305,11 +313,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ThreadParsingTest.TestHolds" />
         <item itemvalue="JUnit.ThreadParsingTest.testShouldIdentifyDaemonThread" />
         <item itemvalue="Application.App" />
         <item itemvalue="JUnit.ThreadParsingTest.shouldReturnThreadState" />
         <item itemvalue="JUnit.ThreadParsingTest" />
-        <item itemvalue="JUnit.ThreadParsingTest.shouldReturnNonEmptyThreadState" />
       </list>
     </recent_temporary>
   </component>
@@ -360,10 +368,10 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" />
+      <window_info anchor="bottom" id="Messages" weight="0.3295688" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3295688" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.3295688" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3295688" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -400,6 +408,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/Downloads/jdk-11/lib/src.zip!/java.base/java/io/BufferedReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="80" selection-start-line="80" selection-end-line="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/ParsingConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/bean/Locked.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#156#157#0" expanded="true" />
+            <element signature="e#185#186#0" expanded="true" />
+            <element signature="e#229#230#0" expanded="true" />
+            <element signature="e#265#266#0" expanded="true" />
+            <element signature="e#308#309#0" expanded="true" />
+            <element signature="e#347#348#0" expanded="true" />
+            <element signature="e#411#412#0" expanded="true" />
+            <element signature="e#467#468#0" expanded="true" />
+            <element signature="e#1166#1167#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/bean/ThreadInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="79" column="48" lean-forward="true" selection-start-line="79" selection-start-column="48" selection-end-line="79" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#959#960#0" expanded="true" />
+            <element signature="e#979#980#0" expanded="true" />
+            <element signature="e#1021#1022#0" expanded="true" />
+            <element signature="e#1048#1049#0" expanded="true" />
+            <element signature="e#1486#1487#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
@@ -414,47 +469,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/bean/ThreadInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="56" column="27" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="27" />
-          <folding>
-            <element signature="e#959#960#0" expanded="true" />
-            <element signature="e#979#980#0" expanded="true" />
-            <element signature="e#1021#1022#0" expanded="true" />
-            <element signature="e#1048#1049#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/ThreadParsing.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2772">
-          <caret line="9" column="97" selection-start-line="9" selection-start-column="97" selection-end-line="9" selection-end-column="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Downloads/jdk-11/lib/src.zip!/java.base/java/io/BufferedReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="827">
-          <caret line="99" column="46" lean-forward="true" selection-start-line="99" selection-start-column="46" selection-end-line="99" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/ThreadDumpReader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="26" column="82" selection-start-line="26" selection-start-column="82" selection-end-line="26" selection-end-column="82" />
+        <state relative-caret-position="352">
+          <caret line="36" column="82" selection-start-line="36" selection-start-column="82" selection-end-line="36" selection-end-column="82" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/PatternConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="838">
+          <caret line="110" column="62" selection-start-line="110" selection-start-column="62" selection-end-line="110" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/thread/dump/parser/util/ThreadParsingTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="797">
-          <caret line="53" column="69" selection-start-line="53" selection-start-column="69" selection-end-line="53" selection-end-column="69" />
+        <state relative-caret-position="728">
+          <caret line="128" column="69" selection-start-line="128" selection-start-column="69" selection-end-line="128" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/thread/dump/parser/util/ThreadParsing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="102" column="86" selection-start-line="102" selection-start-column="86" selection-end-line="102" selection-end-column="86" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

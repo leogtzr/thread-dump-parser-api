@@ -36,7 +36,7 @@ public class ThreadDumpReader {
 
 						final Optional<String> stacktrace = ThreadParsing.extractThreadStackTrace(br);
 						if (stacktrace.isPresent()) {
-							thread.setStackTrace(stacktrace.get());
+							thread.setStackTrace(stacktrace.get().trim());
 						}
 
 						threads.add(thread);

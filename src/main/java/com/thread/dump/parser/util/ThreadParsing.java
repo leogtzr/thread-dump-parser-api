@@ -1,5 +1,6 @@
 package com.thread.dump.parser.util;
 
+import static com.thread.dump.parser.util.PatternConstants.LOCKED_RGX;
 import static com.thread.dump.parser.util.PatternConstants.ThreadNameFieldsIndex.ID;
 import static com.thread.dump.parser.util.PatternConstants.ThreadNameFieldsIndex.NAME;
 import static com.thread.dump.parser.util.PatternConstants.ThreadNameFieldsIndex.NATIVE_ID;
@@ -12,12 +13,11 @@ import static com.thread.dump.parser.util.PatternConstants.ThreadWaitingOn.WAITI
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.locks.Lock;
 import java.util.regex.Matcher;
 
+import com.thread.dump.parser.bean.Locked;
 import org.apache.commons.lang3.StringUtils;
 
 import com.thread.dump.parser.bean.StackTraceLock;
@@ -66,7 +66,7 @@ public class ThreadParsing {
 		
 		final StringBuilder sb = new StringBuilder();
 		for (String line = br.readLine(); line != null && StringUtils.isNotBlank(line); line = br.readLine()) {
-			sb.append(line).append(ParsingConstants.NEW_LINE);
+			sb.append(line.trim()).append(ParsingConstants.NEW_LINE);
 		}
 		
 		if (StringUtils.isNotEmpty(sb.toString())) {
@@ -98,6 +98,32 @@ public class ThreadParsing {
 		
 		return stackTrace;
 		
+	}
+
+	public static Map<ThreadInfo, List<Locked>> holds(final List<ThreadInfo> threads){
+		final Map<ThreadInfo, List<Locked>> holds = new HashMap<>();
+
+		threads.stream()
+				.filter(th -> th.getStackTrace().isPresent())
+				.filter(th -> th.getStackTrace().get().contains(" locked "))
+				.forEach(th -> {
+			final String stackTrace = th.getStackTrace().get();
+
+			Arrays.stream(stackTrace.split("\n")).map(stackLine -> LOCKED_RGX.matcher(stackLine.trim()))
+					.filter(Matcher::matches)
+					.forEach(match -> {
+						if (!holds.containsKey(th)) {
+							final List<Locked> locks = new ArrayList<>();
+							holds.put(th, locks);
+						}
+						final List<Locked> locks = holds.get(th);
+						final Locked lockToAdd = new Locked(match.group(1), match.group(2));
+						locks.add(lockToAdd);
+						holds.put(th, locks);
+					});
+		});
+
+		return holds;
 	}
 	
 	private static void initializeStackTrace(final Map<StackTraceLock, Map<String, ThreadInfo>> stackTrace) {
