@@ -1,5 +1,6 @@
 package com.thread.dump.parser.util;
 
+import static com.thread.dump.parser.util.ParsingConstants.*;
 import static com.thread.dump.parser.util.ParsingConstants.NEW_LINE;
 import static com.thread.dump.parser.util.PatternConstants.*;
 import static com.thread.dump.parser.util.PatternConstants.STATE;
@@ -34,7 +35,7 @@ public class ThreadParsing {
 		
 		final Matcher matcher = THREAD_NAME.matcher(threadHeaderLine);
 		
-		if (matcher.find() && matcher.groupCount() == ParsingConstants.THREAD_NAME_FIELD_COUNT) {
+		if (matcher.find() && matcher.groupCount() == THREAD_NAME_FIELD_COUNT) {
 			
 			final ThreadInfo threadInfo = new ThreadInfo();
 			threadInfo.setName(matcher.group(NAME.get()));
@@ -203,17 +204,9 @@ public class ThreadParsing {
 	}
 
 	private static List<String> uniqueStackTrace(final List<String> threadStackTrace) {
-		final List<String> u = new ArrayList<>(threadStackTrace.size());
-		final Map<String, Boolean> m = new HashMap<>();
-
-		for (final String val : threadStackTrace) {
-			if (!m.containsKey(val.trim())) {
-				m.put(val, true);
-				u.add(val);
-			}
-		}
-
-		return u;
+		final Set<String> m = new HashSet<>();
+		threadStackTrace.stream().filter(val -> !m.contains(val)).forEach(val -> m.add(val));
+		return new ArrayList<>(m);
 	}
 
 	private static String joinFieldsFromStackTraceMethod(final String[] fields) {
