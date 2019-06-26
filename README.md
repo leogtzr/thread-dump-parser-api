@@ -1,7 +1,11 @@
 # thread-dump-parser-api
 
+This is a small Java library to parse some information from a Java Thread Dump.
+
+## To simply parse a thread dump file:
+
 ```java
-final ThreadDumpReader threadsReader = new ThreadDumpReader();
+ThreadDumpReader threadsReader = new ThreadDumpReader();
 
 threadsReader.fromFile("threaddump.txt").
 	stream().
@@ -10,9 +14,18 @@ threadsReader.fromFile("threaddump.txt").
 		System.out.println(thread.getId());
 		System.out.println(thread.getNativeId());
 		System.out.println(thread.getStackTrace().get());
-
+		System.out.println(thread.isDaemon());
 		if (thread.getStackTrace().isPresent()) {
 			// ... 	
 		}
 	});
 ```
+
+Or you could parse the thread information from a String:
+
+```java
+ThreadDumpReader threadsReader = new ThreadDumpReader();
+List<ThreadInfo> threads = threadsReader.fromString(THREAD_DUMP_STRING);
+
+```
+
