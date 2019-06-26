@@ -1,4 +1,4 @@
-# thread-dump-parser-api
+# thread-dump-parser
 
 This is a small Java library to parse some information from a Java Thread Dump.
 
@@ -73,4 +73,9 @@ Or if you want the hold information for a single thread you can use the holdsFor
 for (ThreadInfo thread : threads) {
     List<Locked> holds = ThreadParsing.holdsForThread(thread);
 }
+```
+
+## Top Methods in thread dump
+```java
+Map<String, Integer> mostUsedMethods = ThreadParsing.mostUsedMethods(threads);
 ```
