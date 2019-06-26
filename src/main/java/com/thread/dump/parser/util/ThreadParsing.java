@@ -245,7 +245,7 @@ public class ThreadParsing {
 			if (!th.getStackTrace().isPresent()) {
 				continue;
 			}
-			final List<String> stackTraceLines = Arrays.asList(th.getStackTrace().get().split("\n"));
+			final List<String> stackTraceLines = uniqueStackTrace(Arrays.asList(th.getStackTrace().get().split("\n")));
 			for (String stackTraceLine : stackTraceLines) {
 				stackTraceLine = extractJavaMethodNameFromStackTraceLine(stackTraceLine.trim());
 				if (stackTraceLine.isEmpty()) {
