@@ -67,3 +67,10 @@ It will get you a map with the Thread as the key and list of locks as the value,
  , Locked{lockID='0x000000076ce5dc68', lockedObjectName='sun.nio.ch.EPollSelectorImpl'}]
 ]
 ```
+
+Or if you want the hold information for a single thread you can use the holdsForThread() method in the *ThreadParsing* class:
+```java
+for (ThreadInfo thread : threads) {
+    List<Locked> holds = ThreadParsing.holdsForThread(thread);
+}
+```
