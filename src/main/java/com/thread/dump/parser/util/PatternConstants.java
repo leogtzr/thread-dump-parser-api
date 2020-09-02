@@ -11,7 +11,7 @@ public class PatternConstants {
 	
 	public static final Pattern THREAD_NAME = Pattern.compile("^\"(.*)\".*prio=[0-9]+ tid=(\\w*) nid=(\\w*)\\s\\w*");
 	
-	public static enum ThreadNameFieldsIndex {
+	public enum ThreadNameFieldsIndex {
 		NAME(1),
 		ID(2),
 		NATIVE_ID(3)
@@ -29,7 +29,7 @@ public class PatternConstants {
 	
 	public static final Pattern STATE = Pattern.compile("\\s+java.lang.Thread.State: (.*)");
 	
-	public static enum StateFieldsIndex {
+	public enum StateFieldsIndex {
 		STATE(1)
 		;
 		
@@ -45,7 +45,7 @@ public class PatternConstants {
 	
 	public static final Pattern PARKING_TO_WAIT_FOR = Pattern.compile("\\s+- parking to wait for\\s+<(.*)>\\s+\\(.*\\)");
 	
-	public static enum ThreadParkingToWaitFor {
+	public enum ThreadParkingToWaitFor {
 		WAITING_FOR_ID(1)
 		;
 		private final int index;
@@ -60,7 +60,7 @@ public class PatternConstants {
 	
 	public static final Pattern THREAD_LOCKED = Pattern.compile("\\s+- locked\\s+<(.*)>\\s+\\(.*\\)");
 	
-	public static enum ThreadLockedFieldsIndex {
+	public enum ThreadLockedFieldsIndex {
 		LOCKED_ID(1)
 		;
 		private final int index;
@@ -74,7 +74,7 @@ public class PatternConstants {
 	
 	public static final Pattern WAITING_TO_LOCK = Pattern.compile("- waiting to lock\\s+<(.*)>");
 	
-	public static enum ThreadWaitingToLockFieldsIndex {
+	public enum ThreadWaitingToLockFieldsIndex {
 		WAITING_TO_LOCK(1)
 		;
 		private final int index;
@@ -88,7 +88,7 @@ public class PatternConstants {
 	
 	public static final Pattern WAITING_ON = Pattern.compile("- waiting on\\s+<(.*)>");
 	
-	public static enum ThreadWaitingOn {
+	public enum ThreadWaitingOn {
 		WAITING_ON_ID(1)
 		;
 		private final int index;
@@ -107,9 +107,9 @@ public class PatternConstants {
 	public static final String WAITING_ON_TEXT = "- waiting on <";
 	public static final String WAITING_TO_LOCK_TEXT = "- waiting to lock <";
 
-	public static final Pattern LOCKED_RGX = Pattern.compile("\\s*\\- locked\\s*<(.*)>\\s*\\(a\\s(.*)\\)");
+	public static final Pattern LOCKED_RGX = Pattern.compile("\\s*- locked\\s*<(.*)>\\s*\\(a\\s(.*)\\)");
 
-	public static enum LockedIndex {
+	public enum LockedIndex {
 		ID(1),
 		CLASS(2)
 		;

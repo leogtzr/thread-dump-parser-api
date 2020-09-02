@@ -171,5 +171,11 @@ public class ThreadParsingTest {
 
 		assertEquals((Integer)expectedNumberOfThreadsWithMethodName, mostUsedMethods.get(javaMethodName));
 	}
+
+	@Test
+	public void shouldParseThreadDump() throws Exception {
+		final List<ThreadInfo> threads = new ThreadDumpReader().fromFile("tdump.sample");
+		assertFalse(threads.isEmpty());
+	}
 	
 }
